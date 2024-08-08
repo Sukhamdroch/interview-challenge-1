@@ -63,6 +63,12 @@ const NextButton = styled(Button)`
   right: 10px;
 `;
 
+const UserInfo = styled.div(() => ({
+  padding: '10px',
+  borderTop: '1px solid #ccc',
+  backgroundColor: '#f9f9f9',
+}));
+
 const Post = ({ post }) => {
   const carouselRef = useRef(null);
 
@@ -101,6 +107,10 @@ const Post = ({ post }) => {
         <h2>{post.title}</h2>
         <p>{post.body}</p>
       </Content>
+      <UserInfo>
+        <p>User: {post.user.initials}</p>
+        <p>Email: {post.user.email}</p>
+      </UserInfo>
     </PostContainer>
   );
 };
@@ -108,10 +118,17 @@ const Post = ({ post }) => {
 Post.propTypes = {
   post: PropTypes.shape({
     content: PropTypes.any,
-    images: PropTypes.shape({
-      map: PropTypes.func,
+    images: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string,
+      })
+    ),
+    title: PropTypes.string,
+    body: PropTypes.string,
+    user: PropTypes.shape({
+      initials: PropTypes.string,
+      email: PropTypes.string,
     }),
-    title: PropTypes.any,
   }),
 };
 
